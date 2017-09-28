@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <locale.h>
+#include <conio.h>
 
 int input(float*, char*);
 void output(float*, char*);
@@ -24,13 +25,16 @@ int main()
     return 1;
 }
 
+//Функция для ввода и проверки чисел и шкалы
+
 int input(float *value, char *scale)
 {
-    scanf("%f%*c%c", &(*value), &(*scale));
+    scanf("%f", &(*value));
+    *scale = getch();
 
     if (isalpha(*scale) != 0)
         *scale = toupper(*scale);
-    else if (*scale == 0x00)
+    else if (*scale == 0x0D)
         return 1;
     else
         return 0;
@@ -41,8 +45,11 @@ int input(float *value, char *scale)
         return 1;
 }
 
+
+//функция вывода
+
 void output(float *value, char *scale) {
-    if (*scale == 0x00)
+    if (*scale == 0x0D)
         printf("%.2f C:\n%.2f F\n%.2f K\n\n%.2f F:\n%.2f C\n%.2f K\n\n%.2f K:\n%.2f C\n%.2f F\n", *value, *value * 9 / 5 + 32, *value + 273.15, *value, (*value - 32) / 1.8, (*value + 459.67) / 1.8,
                *value, *value - 273.15, *value *1.8 - 459.67);
 
