@@ -1,35 +1,62 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
+#include <ctype.h>
+#include <locale.h>
 
-int main(void)
+int input(float*, char*);
+void output(float*, char*);
+
+int main()
 {
-    float count;
-    char name;
+    char scale;
+    float value;
 
-    scanf("%f%*c%c", &count, &name);
+    setlocale(LC_ALL, "rus");
 
-    switch (name) {
-    case 'C':
-        printf("%.2f F\n%.2f K\n", count * 1.8 + 32, count + 273.15);
-        getch();
-        break;
-    case 'F':
-        printf("%.2f C\n%.2f K\n", (count - 32) / 1.8, (count + 459.67)*5/9);
-        getch();
-        break;
-    case 'K':
-        printf("%.2f C\n%.2f F\n", count + 273.15, count * 9/5-459.67);
-        getch();
-
-        break;
-    default:
-        printf("%.2f C:\n%.2f F\n%.2f K\n\n%.2f F:\n%.2f C\n%.2f K\n\n%.2f K:\n%.2f C\n%.2f F\n\n",
-                count, count * 1.8 + 32, count + 273.15, count, (count - 32) / 1.8, (count + 459.67)*5/9,
-                count, count + 273.15, count * 9/5-459.67);
-        getch();
-        break;
+    if(input(&value, &scale) == 0)
+    {
+        printf("Ошибка ввода...");
+        return 0;
+    } else {
+        output(&value, &scale);
     }
 
-    return 0;
+    return 1;
+}
+
+int input(float *value, char *scale)
+{
+    scanf("%f%*c%c", &(*value), &(*scale));
+
+    if (isalpha(*scale) != 0)
+        *scale = toupper(*scale);
+    else if (*scale == 0x00)
+        return 1;
+    else
+        return 0;
+
+    if ((*scale == 'C' && *value < -273.15) || (*scale == 'K' && *value < 0) || (*scale == 'F' && *value < -459.67))
+        return 0;
+
+        return 1;
+}
+
+void output(float *value, char *scale) {
+    if (*scale == 0x00)
+        printf("%.2f C:\n%.2f F\n%.2f K\n\n%.2f F:\n%.2f C\n%.2f K\n\n%.2f K:\n%.2f C\n%.2f F\n", *value, *value * 9 / 5 + 32, *value + 273.15, *value, (*value - 32) / 1.8, (*value + 459.67) / 1.8,
+               *value, *value - 273.15, *value *1.8 - 459.67);
+
+    switch(*scale) {
+    case 'C':
+        printf("%.2f F\n%.2f K\n", *value * 1.8 + 32, *value + 273.15);
+        break;
+    case 'F':
+        printf("%.2f C\n%.2f K\n", (*value - 32) / 1.8, (*value + 459.67) / 1.8);
+        break;
+    case 'K':
+        printf("%.2f C\n%.2f F\n", *value -273.15, *value * 1.8 - 459.67);
+        break;
+    default:
+        printf("Ошибка ввода...");
+    }
 }
