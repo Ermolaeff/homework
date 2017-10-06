@@ -35,14 +35,20 @@ int main(int argc, char *argv[]) {
 
         switch(scale) {
         case 'C':
-            printf("%.2f F\n%.2f K\n", number * 1.8 + 32, number + 273.15);
-            break;
+            if (number >= -273.15) {
+                printf("%.2f F\n%.2f K\n", number * 1.8 + 32, number + 273.15);
+                break;
+            }
         case 'F':
-            printf("%.2f C\n%.2f K\n", (number - 32) / 1.8, (number + 459.67) / 1.8);
-            break;
+            if (number > -459.67) {
+                printf("%.2f C\n%.2f K\n", (number - 32) / 1.8, (number + 459.67) / 1.8);
+                break;
+            }
         case 'K':
-            printf("%.2f C\n%.2f F\n", number -273.15, number * 1.8 - 459.67);
-            break;
+            if (number >= 0) {
+                printf("%.2f C\n%.2f F\n", number -273.15, number * 1.8 - 459.67);
+                break;
+            }
         default:
             printf("Invalid data...");
             return 0;
