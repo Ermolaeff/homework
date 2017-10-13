@@ -4,29 +4,26 @@
 
 int main(int argc, char *argv[]) {
     float number = 0;
-    char scale;
+    char scale = ' ';
+
     if (argc == 1) {
         printf("Missing data...");
         return 0;
     } else if (argc == 2) {
+        number = atof(argv[1]);
+        if (number < -273.15)
+        printf("%.2f C:\n%.2f F\n%.2f K\n\n%.2f F:\n%.2f C\n%.2f K\n\n%.2f K:\n%.2f C\n%.2f F\n", number, number * 9 / 5 + 32,
+               number + 273.15, number, (number - 32) / 1.8,
+               (number + 459.67) / 1.8, number, number - 273.15, number *1.8 - 459.67);
+        return 1;
+    } else {
         if (isdigit(*argv[1]) != 0) {
             number = atof(argv[1]);
         } else {
             printf("Invalid data...");
             return 0;
         }
-        printf("%.2f C:\n%.2f F\n%.2f K\n\n%.2f F:\n%.2f C\n%.2f K\n\n%.2f K:\n%.2f C\n%.2f F\n", number, number * 9 / 5 + 32,
-               number + 273.15, number, (number - 32) / 1.8,
-               (number + 459.67) / 1.8, number, number - 273.15, number *1.8 - 459.67);
-        return 1;
-    } else {
-        if (isdigit(number) != 0) {
-            number = atof(argv[1]);
-        } else {
-            printf("Invalid data...");
-            return 0;
-        }
-        if (isalpha(number) == 0) {
+        if (isalpha(*argv[2]) == 0) {
             printf("Invalid data...");
             return 0;
         } else {
