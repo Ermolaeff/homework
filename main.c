@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
 
     if (argc == 1) {
         printf("Missing data...");
-        return 0;
+        return -1;
     } else if (argc == 2) {
         number = atof(argv[1]);
         if (number < -273.15) {
@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
         number = atof(argv[1]);
         if (isalpha(*argv[2]) == 0) {
             printf("Invalid data...");
-            return 0;
+            return -1;
         } else {
             scale = toupper(*argv[2]);
         }
@@ -33,22 +33,32 @@ int main(int argc, char **argv) {
         case 'C':
             if (number >= -273.15) {
                 printf("%.2f F\n%.2f K\n", number * 1.8 + 32, number + 273.15);
+            } else {
+                printf("The number is less than absolute null.");
+                return -1;
             }
                 break;
         case 'F':
             if (number > -459.67) {
                 printf("%.2f C\n%.2f K\n", (number - 32) / 1.8, (number + 459.67) / 1.8);
-             }
+             } else {
+                printf("The number is less than absolute null.");
+                return -1;
+            }
              break;
         case 'K':
             if (number >= 0) {
                 printf("%.2f C\n%.2f F\n", number -273.15, number * 1.8 - 459.67);
+            } else {
+                printf("The number is less than absolute null.");
+                return -1;
             }
                 break;
         default:
             printf("Unknown scale...");
-            return 0;
+            return -1;
         }
+
         return 1;
     }
 }
