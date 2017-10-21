@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1508251404 source:/media/gleb/06245D79245D6D25/General/Документы/C projects/Simple_Stream_Server/main.c
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<errno.h>
+	<string.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<netdb.h>
+	<arpa/inet.h>
+	<sys/wait.h>
+	<signal.h>
+
