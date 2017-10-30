@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1509360230 source:/home/gleb/Documents/homework/lab3/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
